@@ -9,6 +9,8 @@
  * All Rights Reserved.
  * *********************************************************************************** */
 
+require_once('modules/Vtiger/models/Vehicle.php');
+
 class Contacts_Edit_View extends Vtiger_Edit_View {
 
 	public function process(Vtiger_Request $request) {
@@ -30,13 +32,14 @@ class Contacts_Edit_View extends Vtiger_Edit_View {
 		$salutationFieldModel = Vtiger_Field_Model::getInstance('salutationtype', $recordModel->getModule());
 		// Fix for http://trac.vtiger.com/cgi-bin/trac.cgi/ticket/7851
 		$salutationType = $request->get('salutationtype');
-		if(!empty($salutationType)){ 
-                    $salutationFieldModel->set('fieldvalue', $request->get('salutationtype')); 
-                } 
-                else{ 
-                    $salutationFieldModel->set('fieldvalue', $recordModel->get('salutationtype')); 
-                } 
+		if(!empty($salutationType)){
+                    $salutationFieldModel->set('fieldvalue', $request->get('salutationtype'));
+                }
+                else{
+                    $salutationFieldModel->set('fieldvalue', $recordModel->get('salutationtype'));
+                }
 		$viewer->assign('SALUTATION_FIELD_MODEL', $salutationFieldModel);
+		$viewer->assign('VEHICLES', Vehicle_Model::getInstance()->getVehicles($request));
 
 		parent::process($request);
 	}

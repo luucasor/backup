@@ -8,11 +8,21 @@
  * Portions created by vtiger are Copyright (C) vtiger.
  * All Rights Reserved.
  * *********************************************************************************** */
+require_once('modules/Vtiger/models/Vehicle.php');
 
 class Contacts_Detail_View extends Accounts_Detail_View {
 
 	function __construct() {
 		parent::__construct();
+	}
+
+	public function process(Vtiger_Request $request) {
+			$moduleName = $request->getModule();
+			$recordId = $request->get('record');
+
+			$viewer = $this->getViewer($request);
+			$viewer->assign('VEHICLES', Vehicle_Model::getInstance()->getVehicles($request));
+			parent::process($request);
 	}
 
 	public function showModuleDetailView(Vtiger_Request $request) {
