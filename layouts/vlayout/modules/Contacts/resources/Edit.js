@@ -193,3 +193,8 @@ Vtiger_Edit_Js("Contacts_Edit_Js",{},{
 		this.registerRecordPreSaveEvent(container);
 	}
 })
+
+//jQuery
+$.getScript('/crm/layouts/vlayout/modules/Contacts/resources/Vehicles.js', function(){
+	//script is now loaded and executed
+});
